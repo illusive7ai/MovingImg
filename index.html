@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moving Clickable Image Challenge</title>
+    <style>
+        * {
+            background: black;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: aqua;
+            text-align: center;
+        }
+
+        img {
+            position: absolute;
+            width: 200px;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+        }
+
+        #overlay-content {
+            color: white;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: Arial, sans-serif;
+        }
+
+        #passcode-input {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        #submit-passcode {
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-size: 16px;
+            background: aqua;
+            border: none;
+            cursor: pointer;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Try your best to stop the moving image to win a free WhatsApp bot</h1>
+    <img src="download.jpg" alt="Clickable Image" id="movingImage" onclick="imageClicked()">
+
+    <div id="overlay">
+        <div id="overlay-content">
+            <h2>Enter Passcode</h2>
+            <input type="password" id="passcode-input" placeholder="Enter Passcode">
+            <button id="submit-passcode" onclick="validatePasscode()">Submit</button>
+        </div>
+    </div>
+
+    <script>
+        const img = document.getElementById("movingImage");
+        const overlay = document.getElementById("overlay");
+        const passcodeInput = document.getElementById("passcode-input");
+        const correctPasscode = "@illusivehacks1";
+
+        // Function to randomly move the image
+        function moveImage() {
+            const x = Math.random() * (window.innerWidth - img.offsetWidth);
+            const y = Math.random() * (window.innerHeight - img.offsetHeight);
+            img.style.left = `${x}px`;
+            img.style.top = `${y}px`;
+        }
+
+        // Function executed when the image is clicked
+        function imageClicked() {
+            alert("Success! You managed to click the image.\nNext: Try to check what is written in the center of the image.");
+            showPasscodeOverlay();
+        }
+
+        // Display the passcode overlay
+        function showPasscodeOverlay() {
+            overlay.style.display = "block";
+        }
+
+        // Validate the entered passcode
+        function validatePasscode() {
+            const userPasscode = passcodeInput.value;
+            if (userPasscode === correctPasscode) {
+                alert("Correct Passcode! Removing overlay permission.");
+                overlay.style.display = "none"; // Simulates removing display over other apps
+            } else {
+                alert("Incorrect Passcode! Try again.");
+            }
+        }
+
+        // Move the image every 1 second
+        setInterval(moveImage, 1000);
+    </script>
+</body>
+</html>
